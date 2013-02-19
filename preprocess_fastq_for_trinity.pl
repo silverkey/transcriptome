@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 
+# VERSION: 0.2
+
 # Parameters
 my $folder = '.';
 my $run_split_fastq = 1;
@@ -14,8 +16,9 @@ my $trimmomatic_leading = '5';
 my $trimmomatic_trailing = '5';
 my $trimmomatic_sliding = '5:20';
 my $trimmomatic_minlen = '100';
-my $name_left = 'global_left.fastq';
-my $name_right = 'global_right.fastq';
+my $name_left = 'global_left.fasta';
+my $name_right = 'global_right.fasta';
+my $output_format = 'fasta';
 
 # Hashref to populate with names and info on the fastq files
 my $info = {};
@@ -34,6 +37,7 @@ print LOG "$_\n" foreach @fastq;
 print LOG "\n\n";
 
 # STEP 1: Split fastq
+my $seen = {};
 foreach my $fastq(@fastq) {
   if($run_split_fastq) {
     print LOG "Launching perl $split_fasta $fastq\n";
@@ -50,6 +54,17 @@ foreach my $fastq(@fastq) {
     $info->{$fastq}->{sp_r} = $fastq2;
 
     print LOG "Splitted $fastq in:\n$fastq1\n$fastq2\n\n";
+  }
+  else {
+    my $new = "$fastq";
+    $new =~ s/\_[12]\.fastq$//;
+    next if exists $seen->{$new};
+    $seen->{$new} ++; 
+    my $fastq1 = "$new\_1.fastq";
+    my $fastq2 = "$new\_2.fastq";
+    $info->{$new}->{sp_l} = $fastq1;
+    $info->{$new}->{sp_r} = $fastq2;
+    print LOG "Found lane $new in files:\n$fastq1\n$fastq2\n\n";
   }
 }
 
@@ -96,9 +111,10 @@ foreach my $fastq(@fastq) {
   $info->{$fastq}->{tr_r} = $rp;
 }
 
-# STEP 3: Prepare for Digital Normalization
-# According to the Trinity website/manual:
-# Before running the normalization, be sure that in the case of paired reads, the left read names end with suffix /1 and the right read names end with /2.
+# STEP 3: Prepare for Digital Normalization and/or for Trinity however converting the fastq data in fasta
+# According to the Trinity website/manual we must be sure that in the case of paired reads, the left read
+# names end with suffix /1 and the right read names end with /2.
+
 open(LEFT,">$name_left");
 open(RIGHT,">$name_right");
 
@@ -137,15 +153,27 @@ foreach my $fastq(@fastq) {
       print LOG "\nERROR: Got a pair with unequal id: $left_id - $right_id\n";
     }
 
-    print LEFT "$left_id\/1\n";
-    print LEFT $lhr->{2};
-    print LEFT $lhr->{3};
-    print LEFT $lhr->{4};
+    if($output_format eq 'fastq') {
+      print LEFT "$left_id\/1\n";
+      print LEFT $lhr->{2};
+      print LEFT $lhr->{3};
+      print LEFT $lhr->{4};
 
-    print RIGHT "$right_id\/2\n";
-    print RIGHT $rhr->{2};
-    print RIGHT $rhr->{3};
-    print RIGHT $rhr->{4};
+      print RIGHT "$right_id\/2\n";
+      print RIGHT $rhr->{2};
+      print RIGHT $rhr->{3};
+      print RIGHT $rhr->{4};
+    }
+
+    elsif($output_format eq 'fasta') {
+      $left_id .= '/1';
+      my $fastaseq1 = to_fasta($left_id,$lhr->{2});
+      print LEFT $fastaseq1;
+
+      $right_id .= '/2';
+      my $fastaseq2 = to_fasta($right_id,$rhr->{2});
+      print RIGHT $fastaseq2;
+    }
 
     $lrow = '';
     $rrow = '';
@@ -163,6 +191,18 @@ sub get_id {
   my $id = $f[0];
   $id =~ s/\/[12]$//;
   return $id;
+}
+
+sub to_fasta {
+  my ($id,$seq,$len) = @_;
+  chomp($seq);
+  # default to 80 characters of sequence per line
+  $len = 80 unless $len;
+  my $formatted_seq = ">$id\n";
+  while (my $chunk = substr($seq, 0, $len, "")) {
+    $formatted_seq .= "$chunk\n";
+  }
+  return $formatted_seq;
 }
 
 sub check_casava18 {
