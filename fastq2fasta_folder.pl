@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Cwd;
 
-# VERSION: 0.1
+# VERSION: 0.2
 
 ##################
 #   PARAMETERS   #
@@ -45,6 +45,7 @@ sub fastq2fasta_pe {
     $hr->{4} = <IN>;
   
     my $id = $row;
+    $id =~ s/^\@//;
 
     my $fastaseq = to_fasta($id,$hr->{2});
     print OUT $fastaseq;

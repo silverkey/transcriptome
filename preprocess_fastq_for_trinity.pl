@@ -2,23 +2,42 @@
 use strict;
 use warnings;
 
-# VERSION: 0.2
+# VERSION: 0.3
 
-# Parameters
+# The program collect all the files with .fastq extension in the folder and work on them.
+# In case of PE already splitted files they MUST be called with the '_1' or '_2' before
+# the .fastq extension.
+
+##############
+# PARAMETERS #
+##############
 my $folder = '.';
 my $run_split_fastq = 1;
 my $split_fasta = 'split_unique_pe_fastq.pl';
 my $trimmomatic = '/home/remo/src/Trimmomatic-0.22/trimmomatic-0.22.jar';
 my $illumina_adapters = 'illumina_adapters.fa';
-my $trimmomatic_threads = '20';
+my $trimmomatic_threads = '24';
 my $trimmomatic_clip = '2:40:15';
 my $trimmomatic_leading = '5';
 my $trimmomatic_trailing = '5';
 my $trimmomatic_sliding = '5:20';
 my $trimmomatic_minlen = '100';
-my $name_left = 'global_left.fasta';
-my $name_right = 'global_right.fasta';
+my $name_left = 'global_left';
+my $name_right = 'global_right';
 my $output_format = 'fasta';
+
+# The program only accepts as output fasta or fastq
+if($output_format eq 'fastq') {
+  $name_left .= '.fastq';
+  $name_right .= '.fastq';
+}
+elsif($output_format eq 'fasta') {
+  $name_left .= '.fasta';
+  $name_right .= '.fasta';
+}
+else {
+  die "\nERROR: output format $output_format not recognized [fastq|fasta]\n";
+}
 
 # Hashref to populate with names and info on the fastq files
 my $info = {};
@@ -36,7 +55,7 @@ print LOG "Found the following fastq files:\n\n";
 print LOG "$_\n" foreach @fastq;
 print LOG "\n\n";
 
-# STEP 1: Split fastq
+# STEP 1: Split fastq in case PE are in the same file
 my $seen = {};
 foreach my $fastq(@fastq) {
   if($run_split_fastq) {

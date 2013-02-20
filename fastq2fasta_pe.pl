@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use Cwd;
 
-# VERSION: 0.1
+# VERSION: 0.2
 
 ##################
 #   PARAMETERS   #
@@ -90,6 +90,7 @@ sub get_id {
   my @f = split(/\s+/,$row);
   my $id = $f[0];
   $id =~ s/\/[12]$//;
+  $id =~ s/^\@//;
   return $id;
 }
 
