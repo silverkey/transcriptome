@@ -1,0 +1,27 @@
+perl /home/remo/src/trinityrnaseq_r2013-02-16/util/RSEM_util/merge_RSEM_frag_counts_single_table.pl CIIO.isoforms.results CIIP.isoforms.results HATT.isoforms.results HCUH.isoforms.results HCUN.isoforms.results HCUO.isoforms.results > transcripts.counts.matrix
+perl /home/remo/src/trinityrnaseq_r2013-02-16/util/RSEM_util/merge_RSEM_frag_counts_single_table.pl CIIO.genes.results CIIP.genes.results HATT.genes.results HCUH.genes.results HCUN.genes.results HCUO.genes.results > genes.counts.matrix
+
+/home/remo/src/trinityrnaseq_r2013-02-16/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix transcripts.counts.matrix --method edgeR --samples_file mating_samples_file
+/home/remo/src/trinityrnaseq_r2013-02-16/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix transcripts.counts.matrix --method edgeR --samples_file size_samples_file
+
+/home/remo/src/trinityrnaseq_r2013-02-16/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix genes.counts.matrix --method edgeR --samples_file mating_samples_file
+/home/remo/src/trinityrnaseq_r2013-02-16/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix genes.counts.matrix --method edgeR --samples_file size_samples_file
+
+
+perl /home/remo/src/trinityrnaseq_r2013-02-16/util/RSEM_util/merge_RSEM_frag_counts_single_table.pl CIIO.isoforms.results CIIP.isoforms.results HATT.isoforms.results HCUH.isoforms.results HCUN.isoforms.results HCUO.isoforms.results > transcripts.counts.matrix
+perl /home/remo/src/trinityrnaseq_r2013-02-16/util/RSEM_util/merge_RSEM_frag_counts_single_table.pl CIIO.genes.results CIIP.genes.results HATT.genes.results HCUH.genes.results HCUN.genes.results HCUO.genes.results > genes.counts.matrix
+
+/home/remo/src/trinityrnaseq_r2013-02-16/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix transcripts.counts.matrix --method edgeR --samples_file mating_samples_file
+/home/remo/src/trinityrnaseq_r2013-02-16/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix transcripts.counts.matrix --method edgeR --samples_file size_samples_file
+
+/home/remo/src/trinityrnaseq_r2013-02-16/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix genes.counts.matrix --method edgeR --samples_file mating_samples_file
+/home/remo/src/trinityrnaseq_r2013-02-16/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix genes.counts.matrix --method edgeR --samples_file size_samples_file
+
+
+
+ulimit -s unlimited
+ulimit -a
+#/home/remo/src/trinityrnaseq_r2013-02-16/Trinity.pl --seqType fq --JM 240G --left PM_Lfilt.fastq --right PM_Rfilt.fastq --inchworm_cpu 24 --bflyHeapSpaceInit 24G --bflyHeapSpace
+Max 240G --bflyCalculateCPU --CPU 24 --SS_lib_type RF --jaccard_clip
+
+
