@@ -1,18 +1,23 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use Cwd;
 use Data::Dumper;
+
+# VERSION: 0.2
 
 ##############
 # PARAMETERS #
 ##############
 my $script = '/home/remo/src/trinityrnaseq_r2013-02-16/util/RSEM_util/run_RSEM_align_n_estimate.pl';
-my $folder = '.';
-my $transcriptome = '../../PM_transcriptome_no_norm.fasta';
+my $folder = '/media/LOCAL_DATA_1/DATA/pmultistriata/rnaseq/FASTQ/splitted_original_data/EXP_ANALYSIS';
+my $transcriptome = '../PM_transcriptome_jac.fasta';
 my $seqtype = 'fa';
 my $libtype = 'RF';
 my $threads = 24;
 
+my $pwd = getcwd;
+chdir($folder);
 my @seqio;
 @seqio = glob('*.fastq') if $seqtype eq 'fq';
 @seqio = glob('*.fasta') if $seqtype eq 'fa';
@@ -20,7 +25,7 @@ my @seqio;
 my $logfile = "$0";
 $logfile =~ s/\.pl$/\.LOG/;
 open(LOG,">$logfile");
-print LOG "Found the following files:\n\n";
+print LOG "Found the following files in $folder:\n\n";
 print LOG "$_\n" foreach @seqio;
 print LOG "\n\n";
 
@@ -39,12 +44,13 @@ foreach my $seqio(@seqio) {
   $seqio2 = "$new\_2.fasta" if $seqtype eq 'fa';
   die "\nERROR: cannot find file $seqio1 from experiment $new\n" unless(-e $seqio1);
   die "\nERROR: cannot find file $seqio2 from experiment $new\n" unless(-e $seqio2);
-  $info->{$new}->{left} = $seqio1;
-  $info->{$new}->{right} = $seqio2;
+  $info->{$new}->{left} = $folder.'/'.$seqio1;
+  $info->{$new}->{right} = $folder.'/'.$seqio2;
   print LOG "Found experiment $new in files:\n$seqio1\n$seqio2\n\n";
 }
 
 print Dumper $info;
+chdir($pwd) or die "\n\tERROR: cannot cd into $pwd\n\n";
 
 foreach my $exp(keys %$info) {
   my $left = $info->{$exp}->{left};
