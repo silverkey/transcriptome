@@ -2,7 +2,7 @@
 use strict;
 use warnings;
 
-# VERSION: 0.3
+# VERSION: 0.4
 
 # The program collect all the files with .fastq extension in the folder and work on them.
 # In case of PE already splitted files they MUST be called with the '_1' or '_2' before
@@ -12,19 +12,20 @@ use warnings;
 # PARAMETERS #
 ##############
 my $folder = '.';
-my $run_split_fastq = 1;
+my $run_split_fastq = 0;
 my $split_fasta = 'split_unique_pe_fastq.pl';
 my $trimmomatic = '/home/remo/src/Trimmomatic-0.22/trimmomatic-0.22.jar';
 my $illumina_adapters = 'illumina_adapters.fa';
-my $trimmomatic_threads = '24';
+my $trimmomatic_threads = '20';
 my $trimmomatic_clip = '2:40:15';
 my $trimmomatic_leading = '5';
 my $trimmomatic_trailing = '5';
 my $trimmomatic_sliding = '5:20';
-my $trimmomatic_minlen = '100';
-my $name_left = 'global_left';
-my $name_right = 'global_right';
+my $trimmomatic_minlen = '30';
+my $name_left = 'shrimp_filt_left';
+my $name_right = 'shrimp_filt_right';
 my $output_format = 'fasta';
+my $seqfile_ending = '_sequence.txt';
 
 # The program only accepts as output fasta or fastq
 if($output_format eq 'fastq') {
@@ -49,7 +50,7 @@ chdir($folder) or die "\nCannot change in directory $folder\n\n";
 open(LOG,">preprocess_fastq_for_trinity.LOG");
 
 # Get all fastq files inside the folder
-my @fastq = glob('*.fastq');
+my @fastq = glob("*$seqfile_ending");
 
 print LOG "Found the following fastq files:\n\n";
 print LOG "$_\n" foreach @fastq;
@@ -58,6 +59,7 @@ print LOG "\n\n";
 # STEP 1: Split fastq in case PE are in the same file
 my $seen = {};
 foreach my $fastq(@fastq) {
+
   if($run_split_fastq) {
     print LOG "Launching perl $split_fasta $fastq\n";
     system("perl $split_fasta $fastq");
@@ -69,18 +71,21 @@ foreach my $fastq(@fastq) {
     my $fastq2 = $fastq;
     $fastq2 =~ s/\.fastq/\_2\.fastq/;
 
-    $info->{$fastq}->{sp_l} = $fastq1;
-    $info->{$fastq}->{sp_r} = $fastq2;
+    my $new = "$fastq";
+    $new =~ s/$seqfile_ending$//;
 
-    print LOG "Splitted $fastq in:\n$fastq1\n$fastq2\n\n";
+    $info->{$new}->{sp_l} = $fastq1;
+    $info->{$new}->{sp_r} = $fastq2;
+
+    print LOG "Splitted $fastq ($new) in:\n$fastq1\n$fastq2\n\n";
   }
   else {
     my $new = "$fastq";
-    $new =~ s/\_[12]\.fastq$//;
+    $new =~ s/\_[12]$seqfile_ending$//;
     next if exists $seen->{$new};
     $seen->{$new} ++; 
-    my $fastq1 = "$new\_1.fastq";
-    my $fastq2 = "$new\_2.fastq";
+    my $fastq1 = "$new\_1$seqfile_ending";
+    my $fastq2 = "$new\_2$seqfile_ending";
     $info->{$new}->{sp_l} = $fastq1;
     $info->{$new}->{sp_r} = $fastq2;
     print LOG "Found lane $new in files:\n$fastq1\n$fastq2\n\n";
@@ -88,10 +93,16 @@ foreach my $fastq(@fastq) {
 }
 
 # STEP 2: Run Trimmomatic
+$seen = {};
 foreach my $fastq(@fastq) {
 
-  my $l = $info->{$fastq}->{sp_l};
-  my $r = $info->{$fastq}->{sp_r};
+  my $new = "$fastq";
+  $new =~ s/\_[12]$seqfile_ending$//;
+  next if exists $seen->{$new};
+  $seen->{$new} ++; 
+
+  my $l = $info->{$new}->{sp_l};
+  my $r = $info->{$new}->{sp_r};
 
   # Check CASAVA version
   my $lcasava18 = check_casava18($l);
@@ -99,13 +110,13 @@ foreach my $fastq(@fastq) {
 
   # Define names for trimmomatic outputs
   my $lp = $l;
-  $lp =~ s/\.fastq/\_trim_paired.fastq/;
+  $lp =~ s/$seqfile_ending/\_trim_paired.fastq/;
   my $lunp = $l;
-  $lunp =~ s/\.fastq/\_trim_unpaired.fastq/;
+  $lunp =~ s/$seqfile_ending/\_trim_unpaired.fastq/;
   my $rp = $r;
-  $rp =~ s/\.fastq/\_trim_paired.fastq/;
+  $rp =~ s/$seqfile_ending/\_trim_paired.fastq/;
   my $runp = $r;
-  $runp =~ s/\.fastq/\_trim_unpaired.fastq/;
+  $runp =~ s/$seqfile_ending/\_trim_unpaired.fastq/;
 
   if($lcasava18 ne $rcasava18) {
     print LOG "ERROR: splitted fastq are not associated to a similar CASAVA version\n";
@@ -209,6 +220,9 @@ sub get_id {
   my @f = split(/\s+/,$row);
   my $id = $f[0];
   $id =~ s/\/[12]$//;
+  if($output_format eq 'fasta') {
+    $id = s/^\@//;
+  }
   return $id;
 }
 
