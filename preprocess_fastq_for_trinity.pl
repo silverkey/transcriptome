@@ -221,7 +221,7 @@ sub get_id {
   my $id = $f[0];
   $id =~ s/\/[12]$//;
   if($output_format eq 'fasta') {
-    $id = s/^\@//;
+    $id =~ s/^\@//;
   }
   return $id;
 }
