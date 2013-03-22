@@ -4,9 +4,9 @@ use warnings;
 
 # VERSION: 0.4
 
-# The program collect all the files with .fastq extension in the folder and work on them.
+# The program collect all the files with $seqfile_ending extension in the folder and work on them.
 # In case of PE already splitted files they MUST be called with the '_1' or '_2' before
-# the .fastq extension.
+# the $seqfile_ending extension.
 
 ##############
 # PARAMETERS #
