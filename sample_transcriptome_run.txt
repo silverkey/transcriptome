@@ -1,0 +1,34 @@
+# PREPROCESSING (Wrapper to run Trimmomatic and made some workaround)
+perl preprocess_fastq_for_trinity.pl
+
+# PREPARATION TO TRINITY
+ulimit -s unlimited
+ulimit -a
+
+# TRINITY ON STRAND SPECIFIC
+/home/remo/src/trinityrnaseq_r2013-02-25/Trinity.pl --seqType fq --JM 200G --left /media/LOCAL_DATA_2/srobusta/FASTQ/SR_Lfilt.fastq --right /media/LOCAL_DATA_2/srobusta/FASTQ/SR_Rfilt.fastq --inchworm_cpu 20 --bflyHeapSpaceInit 20G --bflyHeapSpaceMax 200G --bflyCalculateCPU --CPU 20 --SS_lib_type RF
+
+# TRINITY ON STRAND NONSPECIFIC
+/home/remo/src/trinityrnaseq_r2013-02-25/Trinity.pl --seqType fa --JM 200G --left shrimp_filt_left.fasta --right shrimp_filt_right.fasta --inchworm_cpu 20 --bflyHeapSpaceInit 20G --bflyHeapSpaceMax 200G --bflyCalculateCPU --CPU 20
+
+# CHANGE NAME OF ORIGINAL FASTA/Q FOR BETTER HANDLING OF DIFF EXP ANALYSIS
+perl changes_name.pl
+
+# MAPPING (Wrapper to run trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl and made some workaround)
+perl launch_mapping_trinity_analysis_folder.pl
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/merge_RSEM_frag_counts_single_table.pl YC1.genes.results YC2.genes.results YC3.genes.results YC4.genes.results YC5.genes.results YC6.genes.results YC7.genes.results YC8.genes.results > genes.counts.matrix
+
+# PREPARE SAMPLE FILE FOR DIFF EXP ANALYSIS (example of sample file)
+control YC1
+control YC3
+control YC5
+control YC7
+test    YC2
+test    YC4
+test    YC6
+test    YC8
+
+# DIFF EXP ANALYSIS
+/home/remo/src/trinityrnaseq_r2013-02-25/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix transcripts.counts.matrix --method edgeR --samples_file sample_file
+/home/remo/src/trinityrnaseq_r2013-02-25/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix genes.counts.matrix --method edgeR --samples_file sample_file
+
