@@ -1,0 +1,21 @@
+m = read.table(file='mating_differentially_expressed_transcripts.txt', head=T, quote='', comment.char='', sep='\t')
+ms = read.table(file='PM_large_minus_vs_small_minus_differentially_expressed_transcripts.txt', head=T, quote='', comment.char='', sep='\t')
+ps = read.table(file='PM_large_plus_vs_small_plus_differentially_expressed_transcripts.txt', head=T, quote='', comment.char='', sep='\t')
+all = read.table(file='../PM_transcripts_counts_filtered.txt', head=T, quote='', comment.char='', sep='\t')
+
+data = list(mating=m$Row.names,plus.size=ps$Row.names,minus.size=ms$Row.names)
+
+id = as.vector(all$tr)
+
+mating = sapply(id,function(x) ifelse(x %in% data$mating,1,0))
+plus.size = sapply(id,function(x) ifelse(x %in% data$plus.size,1,0))
+minus.size = sapply(id,function(x) ifelse(x %in% data$minus.size,1,0))
+
+pdf(file='venn.pdf',paper='a4r',width=8.3,height=11.7,pointsize=8)
+
+venn(list(mating=m$Row.names,plus.size=ps$Row.names,minus.size=ms$Row.names),small=100)
+
+vennDiagram(data.frame(mating,plus.size,minus.size),circle.col=c(2,3,4),lwd=3,cex=c(2,2.5,3))
+
+dev.off()
+

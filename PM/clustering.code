@@ -1,0 +1,6 @@
+tocl = norm.counts[row.names(sig),]
+tocl = tocl[,c(1,4,6,2,3,5)]
+tocl = tocl[,c(1,2,3,4,6,5)]
+pdf(file='clustering.pdf',paper='a4r',width=8.3,height=11.7,pointsize=8)
+heatmap.2(tocl,Colv=NA,scale='row',trace="none",dendrogram='none',col = rev(hmcol),colsep=seq(3,ncol(tocl)-3,3),keysize=1,density.info='none',labRow=NA,margins=c(10,1))
+dev.off()
