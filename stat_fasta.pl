@@ -4,8 +4,9 @@ use warnings;
 use Statistics::Descriptive;
 use Bio::SeqIO;
 use Data::Dumper;
+use Bio::Tools::SeqStats;
 
-# VERSION: 0.2
+# VERSION: 0.3
 
 my $fasta = $ARGV[0];
 my $trinity = $ARGV[1];
@@ -13,6 +14,10 @@ my $trinity = $ARGV[1];
 my $usage = "\n\tUsage: perl $0 [fasta] [trinity assembly]\n\n";
 die $usage unless scalar(@ARGV) == 2;
 die $usage unless -e $fasta;
+
+my $out_table = "$fasta\_stat.txt";
+open(OUT,">$out_table");
+print OUT "seqid\tlength\tA\tT\tC\tG\tGC\n";
 
 my $in = Bio::SeqIO->new(-file => $fasta,
                          -format => 'fasta');
@@ -44,6 +49,15 @@ while(my $seq = $in->next_seq) {
 
   $cum_seq_len += $length;
   push (@seq_lengths, $length);
+
+  my $seq_stats = Bio::Tools::SeqStats->new($seq);
+  my $monomers = $seq_stats->count_monomers();
+  my $a = $monomers->{A};
+  my $t = $monomers->{T};
+  my $c = $monomers->{C};
+  my $g = $monomers->{G};
+  my $gc = ($c+$g)/$length;
+  print OUT join("\t",$seq->id,$length,$a,$t,$c,$g,$gc)."\n";
 
   if($trinity) {
     my $id = $seq->id;
@@ -125,3 +139,4 @@ sub calculate_N50 {
 #print join("\n",@shortest);
 #print "\n\nLongest transcripts are:\n";
 #print join("\n",@longest);
+
