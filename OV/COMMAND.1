@@ -1,0 +1,5 @@
+ulimit -s unlimited
+ulimit -a
+
+nohup /home/remo/src/trinityrnaseq_r2013-02-25/Trinity.pl --seqType fq --JM 200G --left /media/LOCAL_DATA_1/octopus/SEQ/octopus_filt_left.fastq --right /media/LOCAL_DATA_1/octopus/SEQ/octopus_filt_right.fastq --inchworm_cpu 24 --bflyHeapSpaceInit 20G --bflyHeapSpaceMax 200G --bflyCalculateCPU --CPU 24 &
+

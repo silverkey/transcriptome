@@ -1,0 +1,244 @@
+Found the following files in .:
+
+IZ10_1_1.fastq
+IZ10_1_2.fastq
+IZ10_2_1.fastq
+IZ10_2_2.fastq
+IZ11_1_1.fastq
+IZ11_1_2.fastq
+IZ11_2_1.fastq
+IZ11_2_2.fastq
+IZ12_1_1.fastq
+IZ12_1_2.fastq
+IZ12_2_1.fastq
+IZ12_2_2.fastq
+IZ13_1_1.fastq
+IZ13_1_2.fastq
+IZ13_2_1.fastq
+IZ13_2_2.fastq
+IZ15_1_1.fastq
+IZ15_1_2.fastq
+IZ15_2_1.fastq
+IZ15_2_2.fastq
+IZ16_1_1.fastq
+IZ16_1_2.fastq
+IZ16_2_1.fastq
+IZ16_2_2.fastq
+IZ17_1_1.fastq
+IZ17_1_2.fastq
+IZ17_2_1.fastq
+IZ17_2_2.fastq
+IZ18_1_1.fastq
+IZ18_1_2.fastq
+IZ18_2_1.fastq
+IZ18_2_2.fastq
+IZ20_1_1.fastq
+IZ20_1_2.fastq
+IZ20_2_1.fastq
+IZ20_2_2.fastq
+IZ21_1_1.fastq
+IZ21_1_2.fastq
+IZ21_2_1.fastq
+IZ21_2_2.fastq
+IZ22_1_1.fastq
+IZ22_1_2.fastq
+IZ22_2_1.fastq
+IZ22_2_2.fastq
+IZ23_1_1.fastq
+IZ23_1_2.fastq
+IZ23_2_1.fastq
+IZ23_2_2.fastq
+
+
+Found experiment IZ10_1 in files:
+IZ10_1_1.fastq
+IZ10_1_2.fastq
+
+Found experiment IZ10_2 in files:
+IZ10_2_1.fastq
+IZ10_2_2.fastq
+
+Found experiment IZ11_1 in files:
+IZ11_1_1.fastq
+IZ11_1_2.fastq
+
+Found experiment IZ11_2 in files:
+IZ11_2_1.fastq
+IZ11_2_2.fastq
+
+Found experiment IZ12_1 in files:
+IZ12_1_1.fastq
+IZ12_1_2.fastq
+
+Found experiment IZ12_2 in files:
+IZ12_2_1.fastq
+IZ12_2_2.fastq
+
+Found experiment IZ13_1 in files:
+IZ13_1_1.fastq
+IZ13_1_2.fastq
+
+Found experiment IZ13_2 in files:
+IZ13_2_1.fastq
+IZ13_2_2.fastq
+
+Found experiment IZ15_1 in files:
+IZ15_1_1.fastq
+IZ15_1_2.fastq
+
+Found experiment IZ15_2 in files:
+IZ15_2_1.fastq
+IZ15_2_2.fastq
+
+Found experiment IZ16_1 in files:
+IZ16_1_1.fastq
+IZ16_1_2.fastq
+
+Found experiment IZ16_2 in files:
+IZ16_2_1.fastq
+IZ16_2_2.fastq
+
+Found experiment IZ17_1 in files:
+IZ17_1_1.fastq
+IZ17_1_2.fastq
+
+Found experiment IZ17_2 in files:
+IZ17_2_1.fastq
+IZ17_2_2.fastq
+
+Found experiment IZ18_1 in files:
+IZ18_1_1.fastq
+IZ18_1_2.fastq
+
+Found experiment IZ18_2 in files:
+IZ18_2_1.fastq
+IZ18_2_2.fastq
+
+Found experiment IZ20_1 in files:
+IZ20_1_1.fastq
+IZ20_1_2.fastq
+
+Found experiment IZ20_2 in files:
+IZ20_2_1.fastq
+IZ20_2_2.fastq
+
+Found experiment IZ21_1 in files:
+IZ21_1_1.fastq
+IZ21_1_2.fastq
+
+Found experiment IZ21_2 in files:
+IZ21_2_1.fastq
+IZ21_2_2.fastq
+
+Found experiment IZ22_1 in files:
+IZ22_1_1.fastq
+IZ22_1_2.fastq
+
+Found experiment IZ22_2 in files:
+IZ22_2_1.fastq
+IZ22_2_2.fastq
+
+Found experiment IZ23_1 in files:
+IZ23_1_1.fastq
+IZ23_1_2.fastq
+
+Found experiment IZ23_2 in files:
+IZ23_2_1.fastq
+IZ23_2_2.fastq
+
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ21_2_1.fastq --right ./IZ21_2_2.fastq --prefix IZ21_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ12_1_1.fastq --right ./IZ12_1_2.fastq --prefix IZ12_1 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ13_2_1.fastq --right ./IZ13_2_2.fastq --prefix IZ13_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ12_2_1.fastq --right ./IZ12_2_2.fastq --prefix IZ12_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ22_1_1.fastq --right ./IZ22_1_2.fastq --prefix IZ22_1 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ16_2_1.fastq --right ./IZ16_2_2.fastq --prefix IZ16_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ21_1_1.fastq --right ./IZ21_1_2.fastq --prefix IZ21_1 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ17_1_1.fastq --right ./IZ17_1_2.fastq --prefix IZ17_1 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ22_2_1.fastq --right ./IZ22_2_2.fastq --prefix IZ22_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ18_2_1.fastq --right ./IZ18_2_2.fastq --prefix IZ18_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ17_2_1.fastq --right ./IZ17_2_2.fastq --prefix IZ17_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ20_1_1.fastq --right ./IZ20_1_2.fastq --prefix IZ20_1 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ11_1_1.fastq --right ./IZ11_1_2.fastq --prefix IZ11_1 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ10_2_1.fastq --right ./IZ10_2_2.fastq --prefix IZ10_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ18_1_1.fastq --right ./IZ18_1_2.fastq --prefix IZ18_1 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ10_1_1.fastq --right ./IZ10_1_2.fastq --prefix IZ10_1 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ15_2_1.fastq --right ./IZ15_2_2.fastq --prefix IZ15_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ23_2_1.fastq --right ./IZ23_2_2.fastq --prefix IZ23_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ11_2_1.fastq --right ./IZ11_2_2.fastq --prefix IZ11_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ13_1_1.fastq --right ./IZ13_1_2.fastq --prefix IZ13_1 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ15_1_1.fastq --right ./IZ15_1_2.fastq --prefix IZ15_1 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ20_2_1.fastq --right ./IZ20_2_2.fastq --prefix IZ20_2 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ23_1_1.fastq --right ./IZ23_1_2.fastq --prefix IZ23_1 --thread_count 24
+DONE!....
+
+LAUNCHING:
+perl /home/remo/src/trinityrnaseq_r2013-02-25/util/RSEM_util/run_RSEM_align_n_estimate.pl --transcripts ../Trinity.fasta --seqType fq --left ./IZ16_1_1.fastq --right ./IZ16_1_2.fastq --prefix IZ16_1 --thread_count 24
+DONE!....
