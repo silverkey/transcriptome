@@ -1,0 +1,6 @@
+nohup bowtie-build -f Trinity.fasta sr_transcriptome_assembly_2013_10 &
+
+nohup bowtie-build -f genome.fasta sr_genome_part_2013_10 &
+
+nohup bowtie2-build -f genome.fasta sr_genome_part_2013_10_B2 &
+

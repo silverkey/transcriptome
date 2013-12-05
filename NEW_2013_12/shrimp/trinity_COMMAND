@@ -1,0 +1,4 @@
+ulimit -s unlimited
+ulimit -a
+
+nohup /home/remo/src/trinityrnaseq_r2013-02-25/Trinity.pl --seqType fa --JM 200G --left shrimp_filt_left.fasta --right shrimp_filt_right.fasta --inchworm_cpu 20 --bflyHeapSpaceInit 20G --bflyHeapSpaceMax 200G --bflyCalculateCPU --CPU 20 &

@@ -1,0 +1,6 @@
+nohup /home/standard/src/trinityrnaseq_r2013_08_14/util/normalize_by_kmer_coverage.pl --seqType fq --JM 240G --max_cov 30 --left octopus_filt_left.fastq --right octopus_filt_right.fastq --JELLY_CPU 24 &
+
+ulimit -s unlimited
+ulimit -a
+nohup perl /home/standard/src/trinityrnaseq_r2013_08_14/Trinity.pl --seqType fq --JM 240G --left octopus_filt_left.fastq.normalized_K25_C30_pctSD100.fq --right octopus_filt_right.fastq.normalized_K25_C30_pctSD100.fq --inchworm_cpu 24 --bflyHeapSpaceInit 24G --bflyHeapSpaceMax 240G --bflyCalculateCPU --CPU 24 --jaccard_clip --min_kmer_cov 2 &
+

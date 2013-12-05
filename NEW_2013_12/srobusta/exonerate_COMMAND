@@ -1,0 +1,2 @@
+nohup exonerate -q Trinity.fasta -t genome.fasta -m est2genome --showtargetgff yes --dpmemory 10000 --fsmmemory 10000 --maxintron 10000 --geneseed 200 --percent 80 --ryo ">QUERY: %qi length=%ql alnlen=%qal\n>TARGET: %ti length=%tl alnlen=%tal\n>INFO: percentage=%pi identical=%ei mismatch=%em strand=%g\n>CIGAR: %C" > exonerate_geneseed200_pc80_for_parsing.out &
+

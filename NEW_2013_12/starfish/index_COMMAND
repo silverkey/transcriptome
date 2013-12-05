@@ -1,0 +1,1 @@
+nohup bowtie-build -f Trinity.fasta starfish_transcriptome_2013_10 &

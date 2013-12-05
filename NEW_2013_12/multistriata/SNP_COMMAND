@@ -1,0 +1,8 @@
+samtools mpileup -D -u -f pm_transcriptome_assembly_2013_10 CIIO.bam CIIP.bam HATT.bam HCUH.bam HCUN.bam HCUO.bam 2>err.txt | bcftools view -vcg - > transcriptome_mapping_SNP_calls.vcf
+echo 'DONE!'
+#Taken from: http://ged.msu.edu/angus/tutorials-2013/snp_tutorial.html
+#samtools mpileup -uD -r 2L:100,000-150,000 -f /data/drosophila/dmel-all-chromosome-r5.37.fasta \
+#/data/snp_calling/RAL357_full_bwa.sorted.bam /data/snp_calling/RAL391_full_bwa.sorted.bam | \
+#bcftools view -bvcg - > RAL_samtools.raw.bcf
+#bcftools view RAL_samtools.raw.bcf | vcfutils.pl varFilter -D100 > RAL_samtools.vcf
+

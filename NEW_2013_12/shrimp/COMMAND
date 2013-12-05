@@ -1,0 +1,4 @@
+nohup /home/remo/src/trinityrnaseq_r2013-02-25/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix transcripts.counts.matrix --method edgeR --samples_file sample_file &
+
+nohup /home/remo/src/trinityrnaseq_r2013-02-25/Analysis/DifferentialExpression/run_DE_analysis.pl --matrix genes.counts.matrix --method edgeR --samples_file sample_file &
+

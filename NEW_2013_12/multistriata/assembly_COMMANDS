@@ -1,0 +1,8 @@
+tar --extract --file=pmultistriata_last_assemblies.tar.gz pmultistriata_last_assemblies/trinity_assembly_no_norm/PM_Lfilt.fastq
+tar --extract --file=pmultistriata_last_assemblies.tar.gz pmultistriata_last_assemblies/trinity_assembly_no_norm/PM_Rfilt.fastq
+tar --extract --file=pmultistriata_last_assemblies.tar.gz pmultistriata_last_assemblies/trinity_assembly_no_norm/TRINITY_COMMAND
+
+ulimit -s unlimited
+ulimit -a
+nohup /home/remo/src/trinityrnaseq_r2013_08_14/util/normalize_by_kmer_coverage.pl --seqType fq --JM 220G --max_cov 30 --left PM_Lfilt.fastq --right PM_Rfilt.fastq --SS_lib_type RF --JELLY_CPU 22 &
+nohup perl /home/remo/src/trinityrnaseq_r2013_08_14/Trinity.pl --seqType fq --JM 220G --left /home/remo/ANALYSIS/pmultistriata/FINAL/PM_Lfilt.fastq.normalized_K25_C30_pctSD100.fq --right /home/remo/ANALYSIS/pmultistriata/FINAL/PM_Rfilt.fastq.normalized_K25_C30_pctSD100.fq --inchworm_cpu 22 --bflyHeapSpaceInit 22G --bflyHeapSpaceMax 220G --bflyCalculateCPU --CPU 22 --SS_lib_type RF --jaccard_clip --min_kmer_cov 2 &

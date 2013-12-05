@@ -1,0 +1,73 @@
+ulimit -s unlimited
+ulimit -a
+nohup /home/remo/src/trinityrnaseq_r2013_08_14/util/normalize_by_kmer_coverage.pl --seqType fq --JM 240G --max_cov 30 --left SR_Lfilt.fastq --right SR_Rfilt.fastq --SS_lib_type RF --JELLY_CPU 24 &
+
+ulimit -s unlimited
+ulimit -a
+nohup perl /home/remo/src/trinityrnaseq_r2013_08_14/Trinity.pl --seqType fq --JM 220G --left SR_Lfilt.fastq.normalized_K25_C30_pctSD100.fq --right SR_Rfilt.fastq.normalized_K25_C30_pctSD100.fq --inchworm_cpu 22 --bflyHeapSpaceInit 22G --bflyHeapSpaceMax 220G --bflyCalculateCPU --CPU 22 --SS_lib_type RF --jaccard_clip --min_kmer_cov 2 &
+
+nohup bowtie-build -f Trinity.fasta sr_transcriptome_assembly_2013_10 &
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nohup perl /home/remo/src/trinityrnaseq_r2013_08_14/Trinity.pl --seqType fq --JM 220G --left /home/remo/ANALYSIS/pmultistriata/FINAL/PM_Lfilt.fastq.normalized_K25_C30_pctSD100.fq --right /home/remo/ANALYSIS/pmultistriata/FINAL/PM_Rfilt.fastq.normalized_K25_C30_pctSD100.fq --inchworm_cpu 22 --bflyHeapSpaceInit 22G --bflyHeapSpaceMax 220G --bflyCalculateCPU --CPU 22 --SS_lib_type RF --jaccard_clip --min_kmer_cov 2 &
+
+nohup bowtie-build -f Trinity.fasta pm_transcriptome_assembly_2013_10 &
+
+# Run as script
+bowtie index/pm_transcriptome_assembly_2013_10 -q -1 CIIO_1.fastq -2 CIIO_2.fastq -p 20 -S CIIO.sam --chunkmbs 10240 -t --maxins 500 --trim5 20 --trim3 20 --seedlen 20 --tryhard -a
+bowtie index/pm_transcriptome_assembly_2013_10 -q -1 CIIP_1.fastq -2 CIIP_2.fastq -p 20 -S CIIP.sam --chunkmbs 10240 -t --maxins 500 --trim5 20 --trim3 20 --seedlen 20 --tryhard -a
+bowtie index/pm_transcriptome_assembly_2013_10 -q -1 HATT_1.fastq -2 HATT_2.fastq -p 20 -S HATT.sam --chunkmbs 10240 -t --maxins 500 --trim5 20 --trim3 20 --seedlen 20 --tryhard -a
+bowtie index/pm_transcriptome_assembly_2013_10 -q -1 HCUH_1.fastq -2 HCUH_2.fastq -p 20 -S HCUH.sam --chunkmbs 10240 -t --maxins 500 --trim5 20 --trim3 20 --seedlen 20 --tryhard -a
+bowtie index/pm_transcriptome_assembly_2013_10 -q -1 HCUN_1.fastq -2 HCUN_2.fastq -p 20 -S HCUN.sam --chunkmbs 10240 -t --maxins 500 --trim5 20 --trim3 20 --seedlen 20 --tryhard -a
+bowtie index/pm_transcriptome_assembly_2013_10 -q -1 HCUO_1.fastq -2 HCUO_2.fastq -p 20 -S HCUO.sam --chunkmbs 10240 -t --maxins 500 --trim5 20 --trim3 20 --seedlen 20 --tryhard -a
+
+# Run by command line
+nohup samtools view -b -S CIIO.sam > CIIO.bam 2>nohup.ciio.bam &
+nohup samtools view -b -S CIIP.sam > CIIP.bam 2>nohup.ciip.bam &
+nohup samtools view -b -S HATT.sam > HATT.bam 2>nohup.hatt.bam &
+nohup samtools view -b -S HCUH.sam > HCUH.bam 2>nohup.hcuh.bam &
+nohup samtools view -b -S HCUN.sam > HCUN.bam 2>nohup.hcun.bam &
+nohup samtools view -b -S HCUO.sam > HCUO.bam 2>nohup.hcuo.bam &
+
+# Run by command line
+nohup samtools sort CIIO.bam CIIO.sorted > nohup.ciio.sort &
+nohup samtools sort CIIP.bam CIIP.sorted > nohup.ciip.sort &
+nohup samtools sort HATT.bam HATT.sorted > nohup.hatt.sort &
+nohup samtools sort HCUH.bam HCUH.sorted > nohup.hcuh.sort &
+nohup samtools sort HCUN.bam HCUN.sorted > nohup.hcun.sort &
+nohup samtools sort HCUO.bam HCUO.sorted > nohup.hcuo.sort &
+
+# Run by command line
+nohup samtools index CIIO.sorted.bam > nohup.ciio.index &
+nohup samtools index CIIP.sorted.bam > nohup.ciip.index &
+nohup samtools index HATT.sorted.bam > nohup.hatt.index &
+nohup samtools index HCUH.sorted.bam > nohup.hcuh.index &
+nohup samtools index HCUN.sorted.bam > nohup.hcun.index &
+nohup samtools index HCUO.sorted.bam > nohup.hcuo.index &
+
+# Run by command line
+nohup samtools idxstats CIIO.sorted.bam > CIIO.counts 2>nohup.ciio.count &
+nohup samtools idxstats CIIP.sorted.bam > CIIP.counts 2>nohup.ciip.count &
+nohup samtools idxstats HATT.sorted.bam > HATT.counts 2>nohup.hatt.count &
+nohup samtools idxstats HCUH.sorted.bam > HCUH.counts 2>nohup.hcuh.count &
+nohup samtools idxstats HCUN.sorted.bam > HCUN.counts 2>nohup.hcun.count &
+nohup samtools idxstats HCUO.sorted.bam > HCUO.counts 2>nohup.hcuo.count &
+
+
+
